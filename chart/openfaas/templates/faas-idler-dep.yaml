@@ -32,9 +32,9 @@ spec:
           imagePullPolicy: {{ .Values.openfaasImagePullPolicy }}
           env:
             - name: gateway_url
-              value: "http://gateway.{{ .Release.Namespace }}:8080/"
+              value: "http://gateway.{{ .Release.Namespace }}.svc.{{ .Values.kubernetesDNSDomain }}:8080/"
             - name: prometheus_host
-              value: "prometheus.{{ .Release.Namespace }}"
+              value: "prometheus.{{ .Release.Namespace }}.svc.{{ .Values.kubernetesDNSDomain }}"
             - name: prometheus_port
               value: "9090"
             - name: inactivity_duration

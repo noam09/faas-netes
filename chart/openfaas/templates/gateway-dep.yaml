@@ -84,6 +84,8 @@ spec:
         - name: logs_provider_url
           value: "{{ .Values.gateway.logsProviderURL }}"
         {{- end }}
+        - name: faas_prometheus_host
+          value: "prometheus.{{ .Release.Namespace }}.svc.{{ .Values.kubernetesDNSDomain }}"
         - name: read_timeout
           value: "{{ .Values.gateway.readTimeout }}"
         - name: write_timeout
@@ -128,12 +130,12 @@ spec:
           value: "/var/secrets"
         {{- if .Values.oauth2Plugin.enabled }}
         - name: auth_proxy_url
-          value: "http://oauth2-plugin.{{ .Release.Namespace }}:8080/validate"
+          value: "http://oauth2-plugin.{{ .Release.Namespace }}.svc.{{ .Values.kubernetesDNSDomain }}:8080/validate"
         - name: auth_pass_body
           value: "false"
         {{- else }}
         - name: auth_proxy_url
-          value: "http://basic-auth-plugin.{{ .Release.Namespace }}:8080/validate"
+          value: "http://basic-auth-plugin.{{ .Release.Namespace }}.svc.{{ .Values.kubernetesDNSDomain }}:8080/validate"
         - name: auth_pass_body
           value: "false"
         {{- end }}

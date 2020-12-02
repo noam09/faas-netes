@@ -17,7 +17,7 @@ metadata:
     name: default
     namespace: {{ .Release.Namespace }}
 spec:
-    host: "*.{{ .Release.Namespace }}.svc.cluster.local"
+    host: "*.{{ .Release.Namespace }}.svc.{{ .Values.kubernetesDNSDomain }}"
     trafficPolicy:
         tls:
             mode: ISTIO_MUTUAL
@@ -39,7 +39,7 @@ metadata:
     name: default
     namespace: {{ $functionNs | quote }}
 spec:
-    host: "*.{{ $functionNs }}.svc.cluster.local"
+    host: "*.{{ $functionNs }}.svc.{{ .Values.kubernetesDNSDomain }}"
     trafficPolicy:
         tls:
             mode: ISTIO_MUTUAL
@@ -51,7 +51,7 @@ metadata:
     name: "nats-no-mtls"
     namespace: {{ .Release.Namespace }}
 spec:
-    host: "nats.{{ .Release.Namespace }}.svc.cluster.local"
+    host: "nats.{{ .Release.Namespace }}.svc.{{ .Values.kubernetesDNSDomain }}"
     trafficPolicy:
         tls:
             mode: DISABLE

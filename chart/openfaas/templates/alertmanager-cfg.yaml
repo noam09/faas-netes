@@ -36,7 +36,7 @@ data:
     receivers:
     - name: 'scale-up'
       webhook_configs:
-        - url: http://gateway.{{ .Release.Namespace }}:8080/system/alert
+        - url: http://gateway.{{ .Release.Namespace }}.svc.{{ .Values.kubernetesDNSDomain }}:8080/system/alert
           send_resolved: true
           {{- if .Values.basic_auth }}
           http_config:
